@@ -53,6 +53,69 @@ firebase login
 firebase deploy
 ```
 
+## ✉️ Contact Form Setup
+
+The homepage contact form saves submissions into Firebase Realtime Database. Before deploying, replace the placeholder config inside `public/index.html` with your project's values:
+
+1. In the Firebase console open **Project settings → Your apps → Firebase SDK snippet → Config** and copy the object.
+2. Paste it into the `const firebaseConfig = { ... }` block at the bottom of `public/index.html`.
+3. Enable Realtime Database and keep it in test mode while iterating or add security rules that allow authenticated writes from the site.
+4. After testing, view the `contacts` node in the console to confirm new records are created.
+
+> Firebase web configs are public by design, but you can still lock down the API key to `solve-now.net` in the Google Cloud Console for extra safety.
+
+## 👀 Local Preview
+
+Preview the site locally before merging to `main`:
+
+```bash
+firebase login                             # once per machine
+firebase emulators:start --only hosting    # or: firebase serve --only hosting
+```
+
+The emulator serves the files in `public/` so you can review layout changes. The form still talks to your configured Firebase backend, so double-check your config values before submitting test entries.
+
+## 🎨 Tech Stack Logos
+
+### Quick Download Summary
+
+| Technology | Best Source | Format | Link |
+| --- | --- | --- | --- |
+| Vertex AI | Wikimedia / LobeHub | SVG / PNG | https://commons.wikimedia.org |
+| n8n | LobeHub | SVG / PNG / WebP | https://lobehub.com/icons/n8n |
+| CrewAI | LobeHub / GitHub | SVG / PNG / WebP | https://lobehub.com/icons/crewai |
+| OpenAI | OpenAI Brand Kit | SVG / PNG | https://openai.com/brand |
+| Azure AI | Microsoft Learn | SVG | https://learn.microsoft.com/en-us/azure/templates |
+| Google Cloud (GCP) | Google Cloud | SVG / PNG | https://cloud.google.com/icons |
+| A2A Protocol | Google AI | SVG | https://ai.google |
+
+> **Fastest single source:** [LobeHub](https://lobehub.com/) – search once and grab consistent SVG/PNG/WebP assets for every stack logo you need.
+
+### Ways to Use the Logos
+
+1. **Embed from a CDN (zero downloads)** – point `img` tags straight to a trusted CDN such as `logo.svgcdn.com` or `cdn.simpleicons.org`.
+2. **Download locally** – keep SVGs in `public/images/tech-stack/` for full control.
+3. **Upload to Firebase Storage** – host the SVGs behind Firebase's CDN and reuse the same URLs across landing pages.
+
+Sample markup once you have URLs handy:
+
+```html
+<div class="tech-stack">
+  <div class="tech-card">
+    <img src="https://logo.svgcdn.com/logos/google-vertex-ai.svg" alt="Vertex AI" width="80">
+    <p>Google Vertex AI</p>
+  </div>
+  <div class="tech-card">
+    <img src="https://logo.svgcdn.com/simple-icons/n8n.svg" alt="n8n" width="80">
+    <p>n8n</p>
+  </div>
+</div>
+```
+
+Pick whichever hosting approach matches your workflow now and swap the URLs inline in `public/index.html` when you're ready to ship the branded badges.
+
+> **Current implementation:** `public/index.html` now reads the PNG logos stored under `public/img/`. Replace any of those files with your preferred artwork to update the badges while keeping all assets self-hosted.
+
 ## 🏗️ Development
 
 1. Clone the repository:
@@ -66,7 +129,7 @@ firebase deploy
    git checkout dev
    ```
 
-3. Make changes to files in the `public/` directory
+3. Make changes to files in the `public/` directory (the homepage lives at `public/index.html`)
 
 4. Commit changes locally:
    ```bash
