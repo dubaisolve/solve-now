@@ -993,8 +993,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="timeline">Expected Timeline *</label>
-                        <select id="timeline" name="timeline" required>
+                        <label for="timelineSelect">Expected Timeline *</label>
+                        <select id="timelineSelect" name="timeline" required>
                             <option value="">Select a timeline</option>
                             <option value="2-4 weeks">2-4 weeks</option>
                             <option value="4-8 weeks">4-8 weeks</option>
@@ -1137,7 +1137,7 @@
                 email: document.getElementById('email').value.trim(),
                 company: document.getElementById('company').value.trim(),
                 project: document.getElementById('project').value.trim(),
-                timeline: document.getElementById('timeline').value,
+                timeline: document.getElementById('timelineSelect').value,
                 timestamp: Date.now(),
                 submittedAt: new Date().toISOString()
             };
