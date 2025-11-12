@@ -32,6 +32,12 @@ solve-now/
 
 The website is automatically deployed to Firebase Hosting when changes are pushed to the `main` branch via GitHub Actions.
 
+### Development Workflow
+
+- **Development Branch:** `dev` - Use this branch for all development work
+- **Production Branch:** `main` - Only production-ready code should be merged here
+- **Automatic Deployment:** Pushes to `main` trigger automatic deployment to Firebase Hosting
+
 ### Manual Deployment
 
 If needed, you can deploy manually:
@@ -55,14 +61,30 @@ firebase deploy
    cd solve-now
    ```
 
-2. Make changes to files in the `public/` directory
+2. Switch to development branch:
+   ```bash
+   git checkout dev
+   ```
 
-3. Commit and push changes:
+3. Make changes to files in the `public/` directory
+
+4. Commit changes locally:
    ```bash
    git add .
    git commit -m "Your commit message"
-   git push origin main
    ```
+
+5. When ready to deploy, merge to main:
+   ```bash
+   git checkout main
+   git merge dev
+   git push origin main  # This triggers automatic deployment
+   ```
+
+### Branch Strategy
+
+- **`dev` branch:** Primary development branch - commits here don't trigger deployments
+- **`main` branch:** Production branch - only push/merge here when ready to deploy
 
 ## 📝 Custom Domain Setup
 
