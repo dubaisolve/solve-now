@@ -55,12 +55,22 @@ firebase deploy
 
 ## ✉️ Contact Form Setup
 
-The homepage contact form saves submissions into Firebase Realtime Database. Before deploying, replace the placeholder config inside `public/index.html` with your project's values:
+The homepage contact form writes submissions into **Cloud Firestore** (`contacts` collection). Before deploying, replace the placeholder config inside `public/index.html` with your project's values:
 
 1. In the Firebase console open **Project settings → Your apps → Firebase SDK snippet → Config** and copy the object.
 2. Paste it into the `const firebaseConfig = { ... }` block at the bottom of `public/index.html`.
-3. Enable Realtime Database and keep it in test mode while iterating or add security rules that allow authenticated writes from the site.
-4. After testing, view the `contacts` node in the console to confirm new records are created.
+3. Enable Firestore (production mode is fine) and update the rules so anonymous writes are allowed only for the `contacts` collection while you iterate, e.g.:
+   ```
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       match /contacts/{document} {
+         allow create: if true;
+         allow read: if false;
+       }
+     }
+   }
+   ```
+4. After testing, check **Firestore → Data → contacts** to confirm new documents are created.
 
 > Firebase web configs are public by design, but you can still lock down the API key to `solve-now.net` in the Google Cloud Console for extra safety.
 
